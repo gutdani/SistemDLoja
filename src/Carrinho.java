@@ -2,38 +2,51 @@ import java.util.ArrayList;
 
 public class Carrinho {
 
-    private ArrayList<Produtos> produtos;
+    private ArrayList<Produtos> produtosNoCarrinho;
+    private ArrayList<Produtos> produtosDisponiveis;
 
-    public Carrinho() {
-        this.produtos = new ArrayList<>();
-    }  //cria a lista de produtos no carrinho
-
-    public void adicionar(Produtos p) {
-        System.out.println("O produto "+ p.getNome() + "foi adicionado no carrinho!");
-        produtos.add(p);
+    public Carrinho(ArrayList<Produtos> produtosDisponiveis) {
+        this.produtosNoCarrinho = new ArrayList<>();
+        this.produtosDisponiveis = produtosDisponiveis;
     }
 
+    public void adicionarPorNome(String nome) {
+        Produtos produtoEncontrado = null;
+
+        for (Produtos p : produtosDisponiveis) {
+            if (p.getNome().equalsIgnoreCase(nome)) {
+                produtoEncontrado = p;
+                break;
+            }
+        }
+
+        if (produtoEncontrado != null) {
+            produtosNoCarrinho.add(produtoEncontrado);
+            System.out.println(" O produto " + produtoEncontrado.getNome() + " foi adicionado ao carrinho!");
+        } else {
+            System.out.println(" Produto '" + nome + "' não encontrado na loja.");
+        }
+    }
 
     public void remover(String nome) {
         Produtos produtoRemovido = null;
 
-        for (Produtos p : produtos) {
-            if (p.getNome().equalsIgnoreCase(nome)) {  //equalsIgnoreCase serve pra ignorar letras maiusculas e minusculas
+        for (Produtos p : produtosNoCarrinho) {
+            if (p.getNome().equalsIgnoreCase(nome)) {
                 produtoRemovido = p;
                 break;
             }
         }
 
         if (produtoRemovido != null) {
-            produtos.remove(produtoRemovido);
-            System.out.println("O produto " + nome + " foi removido do carrinho.");
+            produtosNoCarrinho.remove(produtoRemovido);
+            System.out.println(" O produto " + nome + " foi removido do carrinho.");
         } else {
-            System.out.println("Produto " + nome + " não encontrado no carrinho.");
+            System.out.println(" Produto " + nome + " não encontrado no carrinho.");
         }
     }
 
-
-    public ArrayList<Produtos> getProdutos(){
-        return produtos;
+    public ArrayList<Produtos> getProdutos() {
+        return produtosNoCarrinho;
     }
 }
