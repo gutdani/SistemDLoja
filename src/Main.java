@@ -1,3 +1,7 @@
+import models.Carrinho;
+import models.Produtos;
+import models.Venda;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
